@@ -26,7 +26,7 @@ export const makeRandomCatService = Effect.gen(function*(_) {
   return RandomCatService.of({
     randomCat: () => pipe(
       catClient.get(),
-      Effect.map(c => CatResource(c.base + "/" + c.url)),
+      Effect.map(c => CatResource(c.url)),
       Effect.mapError(e => new CatError(e._tag))
     )
   })

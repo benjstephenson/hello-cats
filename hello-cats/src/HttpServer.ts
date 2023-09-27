@@ -33,5 +33,3 @@ export const Routes = Effect.gen(function*(_) {
 
   return yield* _(routes)
 })
-
-

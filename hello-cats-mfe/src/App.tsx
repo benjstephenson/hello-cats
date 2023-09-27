@@ -1,10 +1,17 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useState } from 'react'
+
+type CatResource = { catResource: string }
+
+const getCatId = () => fetch("http://localhost:3030/cats")
+  .then(resp => resp.json())
+  .then(json => json as CatResource)
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [catImage, setCat] = useState<string>()
 
   return (
     <>
@@ -18,16 +25,12 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => getCatId().then(cat => setCat("http://www.cataas.com" + cat.catResource))}>
+          Click for a random cat
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <p>{catImage}</p>
+        <img src={catImage} />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

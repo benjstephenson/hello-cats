@@ -1,1 +1,4 @@
 GET http://localhost:3030/cats
+
+GET https://cataas.com/cat?type=sm
+

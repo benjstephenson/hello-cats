@@ -11,7 +11,7 @@ export const router = Http.router.empty.pipe(
       return yield* _(pipe(
         catService.randomCat(),
         Effect.matchEffect({
-          onSuccess: cat => Http.response.json({ catResource: cat }, { status: 200 }),
+          onSuccess: cat => Http.response.json({ catResource: cat }, { status: 200, headers: { "Access-Control-Allow-Origin": "*" } }),
           onFailure: e => Http.response.json({ reason: e }, { status: 500 })
         }),
       ))

@@ -17,7 +17,6 @@ export const Routes = Effect.gen(function*(_) {
       RouteNotFound: () => Effect.succeed(Http.response.empty({ status: 404 }))
     }),
 
-
     Effect.catchAllCause(cause =>
       Effect.as(
         Effect.logError("Unhandled HTTP error: ", cause),

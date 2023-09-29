@@ -3,7 +3,7 @@ import { Effect, pipe } from "effect"
 import { createServer } from "node:http"
 import * as CatRoutes from "./CatRoutes"
 
-export const DevServer = Http.server.layer(() => createServer(), { port: 3030 })
+export const DevServer = Http.server.layer(() => createServer(), { host: "0.0.0.0", port: 8000 })
 
 export const Routes = Effect.gen(function*(_) {
 

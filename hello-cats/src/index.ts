@@ -5,10 +5,12 @@ import { CatsClientLive } from "./CatsClient"
 import { RandomCatServiceLive } from "./RandomCat"
 import * as OpenTel from "./OpenTelemetry"
 import * as Server from "./HttpServer"
+import { FastifyAppLive } from "./FastifyServer"
 
 const LiveApplication = pipe(
   Layer.scopedDiscard(Server.Routes),
   Layer.use(Server.DevServer),
+  //FastifyAppLive,
   Layer.use(RandomCatServiceLive),
   Layer.use(CatsClientLive),
   Layer.use(NodeContext.layer),

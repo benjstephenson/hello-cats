@@ -29,24 +29,12 @@ RUN \
 # Note if updating the version, update dev/docker-compose image as well
 FROM node:18-alpine
 
-EXPOSE 9034
 
 ARG VERSION
 ARG GIT_SHA
 ARG BUILD_DATE
 
 ARG SERVICE_NAME="hello-cats-service"
-
-LABEL "maintainer"="REI Team"
-
-LABEL "org.opencontainers.image.created"=${BUILD_DATE} \
-      "org.opencontainers.image.title"="Hello Cats Serivce" \
-      "org.opencontainers.image.vendor"="EzyVet" \
-      "org.opencontainers.image.version"=${VERSION} \
-      "org.opencontainers.image.revision"=${GIT_SHA}
-
-LABEL "com.datadoghq.tags.service"=${SERVICE_NAME} \
-      "com.datadoghq.tags.version"=${VERSION}
 
 # Setup app user and app entrypoint
 COPY ./docker/entrypoint.sh /usr/local/bin/
@@ -55,7 +43,6 @@ RUN \
   mkdir /app; \
   addgroup -S app && adduser -S app -G app -h /app
 WORKDIR /app
-ENTRYPOINT ["entrypoint.sh"]
 USER app
 
 
@@ -68,3 +55,19 @@ COPY --chown=app:app ./package.json /app
 COPY --chown=app:app ./pnpm-lock.yaml /app
 COPY --chown=app:app --from=builder /build/dist /app
 COPY --chown=app:app --from=builder /build/node_modules /app/node_modules
+
+
+
+LABEL "maintainer"="REI Team"
+
+LABEL "org.opencontainers.image.created"=${BUILD_DATE} \
+      "org.opencontainers.image.title"="Hello Cats Serivce" \
+      "org.opencontainers.image.vendor"="EzyVet" \
+      "org.opencontainers.image.version"=${VERSION} \
+      "org.opencontainers.image.revision"=${GIT_SHA}
+
+LABEL "com.datadoghq.tags.service"=${SERVICE_NAME} \
+      "com.datadoghq.tags.version"=${VERSION}
+
+EXPOSE 8000
+CMD ["node_modules/nodemon/bin/nodemon.js", "src/index.ts"]

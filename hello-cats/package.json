@@ -4,6 +4,7 @@
   "scripts": {
     "start": "npx ts-node src/index.ts",
     "build": "tsc -b . --extendedDiagnostics",
+    "dev": "nodemon - exec 'ts-node' src/index.ts",
     "clean": "rimraf dist/* && rimraf tsconfig.tsbuildinfo",
     "clean:build": "pnpm run clean && pnpm run build",
     "ci:install:prod": "pnpm install --frozen-lockfile --ignore-scripts"
@@ -16,12 +17,14 @@
     "@effect/stream": "^0.37.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.43.0",
     "effect": "2.0.0-next.36",
+    "fastify": "^4.23.2",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
     "opentelemetry": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.7.0",
     "rimraf": "^5.0.4",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
 }
